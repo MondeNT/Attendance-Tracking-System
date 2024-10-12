@@ -11,56 +11,99 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-    <script src="{% static 'js/login.js' %}"></script>
+  <script src="{% static 'js/login.js' %}"></script>
 
-    <header>
-        <nav class="navbar navbar-expand-lg ">
-            <div class="container">
+  <header>
+      <nav class="navbar navbar-expand-lg ">
+          <div class="container">
               <a class="navbar-brand fw-bold fs-4" href="#">Diamond Essence Eatery</a>
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                  aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
               </button>
-              </div>
-        </nav>
-
-        <section>
-            <div class="container pt-5">
-              <div class="row align-items-center justify-content-center">
-                <div class="col-12 col-lg-6">
-                  <h1 class="display-4 fw-bold"><span class="font-goldenrod">Welcome</span> to Diamond Essence Eatery WorkTrack Pro</h1>
+          </div>
+      </nav>
+  
+      <!-- Main Section -->
+    <section>
+      <div class="container pt-5">
+          <div class="row align-items-center justify-content-center">
+              <div class="col-12 col-lg-6">
+                  <h1 class="display-4 fw-bold"><span class="text-warning">Welcome</span> to Diamond Essence Eatery WorkTrack Pro</h1>
                   <p class="lead pd-4 pt-2">Your one-stop solution for efficient and accurate workforce management.</p>
-                  <button class="btn btn-primary px-4 py-2 d-incline-block">Login</button>
-                </div>
+                  <!-- Trigger the login popup -->
+                  <button id="openLoginPopup" class="btn btn-primary">Login</button>
 
-                <div class="popup">
-                    <div class="close-btn">&times;</div>
-                    <div class="form">
-                      <h2>Log in</h2>
-                      <div class="form-element">
-                        <label for="username">Username</label>
-                        <input type="text" id="username" placeholder="Enter username">
-                      </div>
-                      <div class="form-element">
-                        <label for="password">Password</label>
-                        <input type="password" id="password" placeholder="Enter password">
-                      </div>
-                      <div class="form-element">
-                        <button>Sign in</button>
-                      </div>
-                      <div class="form-element">
-                        <a href="{% url 'forgotPwd' %}">Forgot password?</a>
-                      </div>
-                    </div>
-                </div>
+<!-- Popup for login -->
+<!-- Popup for login -->
+<div class="popup" id="loginPopup" style="max-height: 80vh; overflow-y: auto; padding: 30px; background-color: #fff; border-radius: 15px; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000; display: none; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); width: 60%; max-width: 400px;">
 
-                <div class="col-12 col-lg-6">
-                  <!-- Use Django static tag for images -->
-                  <img src="{% static 'images/foodPlate.png' %}" alt="Plate of food" class="image-fluid">
-                </div>
+  <!-- Close button -->
+  <div class="close-btn" id="closeLoginPopup" style="position: absolute; top: 10px; right: 10px; cursor: pointer; font-size: 24px; color: #999;">&times;</div>
+
+  <!-- Title -->
+  <h2 class="text-center mb-4" style="font-weight: bold; color: #333; letter-spacing: 1px;">Log in</h2>
+
+  <!-- Form -->
+  <form method="POST" action="{% url 'login' %}">
+      {% csrf_token %}
+      <!-- Form fields -->
+      <div class="mb-3">
+          <label for="id_username" class="form-label">Username</label>
+          <input type="text" name="username" class="form-control rounded-pill py-2 px-3" id="id_username" placeholder="Enter username" required>
+      </div>
+      <div class="mb-3">
+          <label for="id_password" class="form-label">Password</label>
+          <input type="password" name="password" class="form-control rounded-pill py-2 px-3" id="id_password" placeholder="Enter password" required>
+      </div>
+
+      <!-- Submit button -->
+      <div class="d-grid mt-4">
+          <button type="submit" class="btn btn-primary btn-block" style="background-color: black; border: none; border-radius: 50px; padding: 12px; font-size: 16px; letter-spacing: 0.5px; transition: background-color 0.3s ease;">
+              Sign in
+          </button>
+      </div>
+  </form>
+
+  <!-- Forgot password link -->
+  <div class="form-element mt-3 text-center">
+      <a href="{% url 'forgotPwd' %}" style="text-decoration: none; color: goldenrod; font-weight: 600;">Forgot password?</a>
+  </div>
+</div>
+
+<!-- JavaScript to handle popup display -->
+<script>
+  document.getElementById('openLoginPopup').addEventListener('click', function() {
+      document.getElementById('loginPopup').style.display = 'block';
+  });
+
+  document.getElementById('closeLoginPopup').addEventListener('click', function() {
+      document.getElementById('loginPopup').style.display = 'none';
+  });
+</script>
+
+
               </div>
-            </div>
-        </section>
-    </header>
+
+              <div class="col-12 col-lg-6">
+                  <!-- Use Django static tag for images -->
+                  <img src="{% static 'images/foodPlate.png' %}" alt="Plate of food" class="img-fluid">
+              </div>
+          </div>
+      </div>
+  </section>
+
+ <!-- Add a button somewhere in your page to trigger the login popup -->
+
+
+
+
+  </header>
+
+  <!-- Load Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  
 
     <section class="container py-2 mt-5">
       <div class="row g-5">
